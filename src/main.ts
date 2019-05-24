@@ -52,5 +52,7 @@ const server = new ApolloServer({
     schema,
 });
 
+console.log(schema);
+
 server.listen(4242)
-    .then(({ url }) => console.log(`🚀 Server is running at ${url}`))
+    .then(({ url }) => console.log(`🚀 Server is running at ${url}`));
