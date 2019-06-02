@@ -270,9 +270,26 @@ function printFields(options, type) {
             printArgs(options, f.args, '  ') +
             ': ' +
             String(f.type) +
-            printDeprecated(f),
+            printFieldDirectives(f),
     );
     return printBlock(fields);
+}
+
+function printFieldDirectives(field) {
+    const directives = field.astNode.directives;
+    return directives.map(d =>
+        ' ' +
+        '@' +
+        d.name.value +
+       printFieldDirectiveArgs(d.arguments)
+    );
+}
+
+function printFieldDirectiveArgs(args) {
+    const printArg = (arg: any) => arg.name.value + ': ' + print(arg.value);
+    return args && args.length
+        ? '(' + args.slice(1).reduce((acc, cur) => acc + ',' + printArg(cur), printArg(args[0])) + ')'
+        : '';
 }
 
 function printBlock(items) {

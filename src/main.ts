@@ -4,9 +4,11 @@ import { SchemaDirective } from "./schema-directive.decorator";
 import { getMetadataStorage } from "./metadata.storage";
 import { buildResolverFields } from "./build-resolver-fields";
 import { SchemaDiectiveResolverVisitor } from "./schema-directive-resolver-visitor";
+import { printSchema } from "./schemaPrinter";
 
 /**
  * Define the schema directive
+ * Should somehow define arguments and their types
  */
 @SchemaDirective('changeCase')
 class ChangeCaseDirective extends SchemaDiectiveResolverVisitor {
@@ -52,7 +54,7 @@ const server = new ApolloServer({
     schema,
 });
 
-console.log(schema);
+console.log(printSchema(schema));
 
 server.listen(4242)
     .then(({ url }) => console.log(`🚀 Server is running at ${url}`));
